@@ -2,7 +2,7 @@ name: Build geosite.dat
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 4"
+    - cron: "0 0 * * 0"
   push:
     branches:
       - master
@@ -38,6 +38,11 @@ jobs:
       - name: Generate sha256 hash
         run: |
           sha256sum geosite.dat > geosite.dat.sha256sum
+
+      - name: Move files to publish directory
+        run: |
+          mkdir -p publish
+          mv ./output/dat/*.dat ./output/dat/*.sha256sum ./publish
 
       - name: Release and upload assets
         run: |
