@@ -41,7 +41,7 @@ jobs:
 
       - name: Move files to publish directory
         run: |
-          mkdir -p publish
+          #mkdir -p publish
           mv ./output/dat/*.dat ./output/dat/*.sha256sum ./publish
 
       - name: Release and upload assets
