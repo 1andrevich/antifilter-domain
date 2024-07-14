@@ -8,6 +8,7 @@ on:
       - master
     paths-ignore:
       - "**/README.md"
+
 jobs:
   build:
     name: Build
@@ -35,14 +36,26 @@ jobs:
         run: |
           go run ./ --exportlists=antifilter-community --outputname=geosite.dat
 
+      - name: List output directory
+        run: |
+          ls -R ./
+
       - name: Generate sha256 hash
         run: |
           sha256sum geosite.dat > geosite.dat.sha256sum
 
+      - name: List directory before move
+        run: |
+          ls -R ./
+
       - name: Move files to publish directory
         run: |
-          #mkdir -p publish
-          mv ./output/dat/*.dat ./output/dat/*.sha256sum ./publish
+          mkdir -p publish
+          mv ./*.dat ./*.sha256sum ./publish
+
+      - name: List publish directory
+        run: |
+          ls -R ./publish
 
       - name: Release and upload assets
         run: |
@@ -50,4 +63,4 @@ jobs:
             ./publish/*.dat \
             ./publish/*.dat.sha256sum
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
