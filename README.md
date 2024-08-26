@@ -18,7 +18,7 @@
       "rules": [
       {
         "domain": [
-          "ext:geosite.dat:antifilter"
+          "ext:geosite.dat:antifilter-community"
         ],
         "type": "field",
         "outboundTag": "proxy"
